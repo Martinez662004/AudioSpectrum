@@ -1,19 +1,20 @@
 #include <SDL2/SDL.h>
 #include <fftw3.h>
 
-const char* file = "audio.wav";                // Ruta de acceso
+const char* file = "audio3.wav";                // Ruta de acceso en la misma carpeta
 
 constexpr int SAMPLE_RATE = 44100;
 constexpr int NUM_SAMPLES = 2048;
-constexpr int NUM_BARS = NUM_SAMPLES / 44 ;
-constexpr int AVG_SAMPLES = 22;
+constexpr int NUM_BARS = NUM_SAMPLES / 11 ;
+constexpr int AVG_SAMPLES = 8;
 
 constexpr int HEIGHT = 400;
-constexpr int SIZE_BARS = 8;
+constexpr int SIZE_BARS = 1;
+constexpr int SPACE_BARS = 8;
 
 constexpr double dampingFactor = 0.8f;          // Suavisado de movimiento
-constexpr double threshold = 9.0f;              // Umbral
-constexpr double amplificationFactor = 5.9f;    // Amplificador de movimiento
+constexpr double threshold = 3.0f;              // Umbral
+constexpr double amplificationFactor = 4.9f;    // Amplificador de movimiento
 
 double prevHeights[NUM_BARS] = { 0 };
 double avgAmplitudes[NUM_BARS] = { 0 };
@@ -79,9 +80,9 @@ int main(int argc, char* argv[]) {
     SDL_PauseAudio(0);
 
     // Inicializa la ventana
-    SDL_Window* window = SDL_CreateWindow("Audio", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, NUM_BARS * 10, HEIGHT, 0);
+    SDL_Window* window = SDL_CreateWindow("Audio", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, NUM_BARS * SPACE_BARS, HEIGHT, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
-    SDL_RenderSetLogicalSize(renderer, NUM_BARS * 10, HEIGHT);
+    SDL_RenderSetLogicalSize(renderer, NUM_BARS * SPACE_BARS, HEIGHT);
 
     // Inicializa FFTW
     in = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) * NUM_SAMPLES);
